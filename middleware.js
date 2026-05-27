@@ -56,3 +56,13 @@ module.exports.validateReview = (req, res, next) => {
         next();
     }
 }
+module.exports.isAdmin = (req, res, next) => {
+    const adminId = '6a1748068d3ab06e930a26c3';
+
+    if (req.user && req.user._id.toString() === adminId) {
+        return next();
+    }
+
+    req.flash('error', 'You are not allowed to do that!');
+    res.redirect('/campgrounds');
+}
